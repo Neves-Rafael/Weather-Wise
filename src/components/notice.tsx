@@ -2,6 +2,7 @@ import { ClassType } from "../shared/types";
 import { noticia1 } from "../assets";
 import { noticia2 } from "../assets";
 import { noticia3 } from "../assets";
+import Class from "./Class";
 
 const infoNotice: Array<ClassType> = [
   {
@@ -25,7 +26,20 @@ const infoNotice: Array<ClassType> = [
 ];
 
 const notice = () => {
-  return <div>notice</div>;
+  return (
+    <div>
+      <div>
+        {infoNotice.map((item, index) => (
+          <Class
+            key={`${item.portal}-${index}`}
+            portal={item.portal}
+            description={item.description}
+            image={item.image}
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default notice;
