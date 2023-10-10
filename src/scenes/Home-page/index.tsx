@@ -2,6 +2,7 @@
 import { background, logo } from "@/assets/index.ts";
 import { Link, useNavigate } from "react-router-dom";
 import Notice from "@/components/notice";
+import Search from "./search";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -10,8 +11,9 @@ const Home = () => {
     navigate("/resultado");
   };
 
-  const imput =
-    "rounded-lg h-11 w-[300px] placeholder:text-center border-4 focus:border-blue-500 focus:outline-none p-2 text-[18px]";
+  const handleOnSearchChange = (searchData) => {
+    console.log(searchData);
+  };
 
   return (
     <>
@@ -32,11 +34,7 @@ const Home = () => {
             </div>
 
             <div className="flex flex-col gap-4">
-              <input
-                type="text"
-                className={imput}
-                placeholder="Selecione a sua Cidade"
-              />
+              <Search onSearchChange={handleOnSearchChange} />
               {/* Enviar solicitação API */}
               <button
                 onClick={pesquisa}
