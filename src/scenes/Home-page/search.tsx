@@ -3,16 +3,34 @@ import { AsyncPaginate } from "react-select-async-paginate";
 import { GEO_API_URL, geoApiOptions } from "@/shared/apis";
 
 type Props = {
-  city: string;
+  onSearchChange: (searchData: searchData) => void;
+  latitude: number;
+  longitude: number;
+  name: string;
+  countryCode: number;
+};
+
+type dados = {
+  longitude: number;
+  latitude: number;
+  name: string;
+  countryCode: number;
+};
+
+type searchData = {
+  longitude: number;
+  latitude: number;
+  name: string;
+  countryCode: number;
 };
 
 const imputStyle =
   "rounded-lg  w-[300px] placeholder:text-center p-1 focus:border-blue-500 focus:outline-none text-[18px]";
 
-const Search = ({ onSearchChange }) => {
+const Search = ({ onSearchChange }: Props) => {
   const [search, setSearch] = useState(null);
 
-  const loadOptions = (inputValue) => {
+  const loadOptions = (inputValue: string) => {
     return fetch(
       `${GEO_API_URL}/?countryIds=BR&namePrefix=${inputValue}`,
       geoApiOptions
@@ -20,7 +38,7 @@ const Search = ({ onSearchChange }) => {
       .then((response) => response.json())
       .then((response) => {
         return {
-          options: response.data.map((city: string) => {
+          options: response.data.map((city: dados) => {
             return {
               value: `${city.latitude} ${city.longitude}`,
               label: `${city.name}, ${city.countryCode}`,
@@ -31,7 +49,7 @@ const Search = ({ onSearchChange }) => {
       .catch((err) => console.error(err));
   };
 
-  const handleOnChange = (searchData) => {
+  const handleOnChange = (searchData: searchData) => {
     setSearch(searchData);
     onSearchChange(searchData);
   };

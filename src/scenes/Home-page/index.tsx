@@ -1,8 +1,19 @@
 // import React from "react";
 import { background, logo } from "@/assets/index.ts";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Notice from "@/components/notice";
 import Search from "./search";
+import weather from "../Weather";
+
+// type searchData = {
+//   latitude: number;
+//   longitude: number;
+//   hourly: string;
+// };
+
+type data = {
+  searchData: searchData;
+};
 
 const Home = () => {
   const navigate = useNavigate();
@@ -11,7 +22,7 @@ const Home = () => {
     navigate("/resultado");
   };
 
-  const handleOnSearchChange = (searchData) => {
+  const handleOnSearchChange = (searchData: data) => {
     console.log(searchData);
   };
 
