@@ -1,75 +1,101 @@
-import { useState } from "react";
-import { AsyncPaginate } from "react-select-async-paginate";
-import { GEO_API_URL, geoApiOptions } from "@/shared/apis";
+import { useState, useEffect } from "react";
+// import { AsyncPaginate } from "react-select-async-paginate";
+import { GEO_API_URL, API_KEY, METEO_API_URL } from "@/shared/apis";
 
-type Props = {
-  onSearchChange: (searchData: searchData) => void;
-  latitude: number;
-  longitude: number;
-  name: string;
-  countryCode: number;
-};
+// type Props = {
+//   onSearchChange: (searchData: searchData) => void;
+//   latitude: number;
+//   longitude: number;
+//   name: string;
+//   countryCode: number;
+// };
 
-type dados = {
-  longitude: number;
-  latitude: number;
-  name: string;
-  countryCode: number;
-};
+// type dados = {
+//   longitude: number;
+//   latitude: number;
+//   name: string;
+//   countryCode: number;
+// };
 
-type searchData = {
-  longitude: number;
-  latitude: number;
-  name: string;
-  countryCode: number;
-};
+// type searchData = {
+//   longitude: number;
+//   latitude: number;
+//   name: string;
+//   countryCode: number;
+// };
 
 const imputStyle =
   "rounded-lg  w-[300px] placeholder:text-center p-1 focus:border-blue-500 focus:outline-none text-[18px]";
 
-const Search = ({ onSearchChange }: Props) => {
-  const [search, setSearch] = useState(null);
+const Search = () => {
+  const [data, setData] = useState(null);
 
-  const loadOptions = (inputValue: string) => {
-    return fetch(
-      `${GEO_API_URL}/?countryIds=BR&namePrefix=${inputValue}`,
-      geoApiOptions
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        return {
-          options: response.data.map((city: dados) => {
-            return {
-              value: `${city.latitude} ${city.longitude}`,
-              label: `${city.name}, ${city.countryCode}`,
-            };
-          }),
-        };
-      })
-      .catch((err) => console.error(err));
+  //função para pegar o valor do input
+
+  const [inputValue, setInputValue] = useState<string>("");
+
+  // const showWeatherData = (city: {}) => {
+  //   console.log(city);
+  // };
+
+  //atualiza o valor do input
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value); // Atualiza o estado com o valor do input
   };
 
-  const handleOnChange = (searchData: searchData) => {
-    setSearch(searchData);
-    onSearchChange(searchData);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+
+  const handleSubmit = async () => {
+    try {
+      const getGeoCode = async (inputValue: string) => {
+        const apiGeoCodeUrl = `${GEO_API_URL}${inputValue}&limit=1&appid=${API_KEY}`;
+        const resultApi = await fetch(apiGeoCodeUrl);
+        const geoCode = await resultApi.json();
+
+        if (geoCode && geoCode[0].lon !== 0) {
+          setLatitude(geoCode[0].lat);
+          setLongitude(geoCode[0].lon);
+          console.log("Dados da API:", geoCode);
+        } else {
+          console.error("Dados de localização não encontrados ou inválidos.");
+        }
+      };
+
+      const getWeatherData = async (inputValue: string) => {
+        const apiWeatherUrl = `${METEO_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+        const resultApi = await fetch(apiWeatherUrl);
+        const resultApiJson = await resultApi.json();
+
+        console.log(resultApiJson);
+      };
+
+      // Aqui você pode enviar o valor do input para a API ou realizar qualquer outra ação desejada
+      getWeatherData(inputValue);
+      getGeoCode(inputValue);
+    } catch (error) {
+      console.error("erro ao buscar");
+    }
   };
 
   return (
-    <AsyncPaginate
-      placeholder="Pesquise Sua Cidade"
-      className={imputStyle}
-      debounceTimeout={600}
-      value={search}
-      onChange={handleOnChange}
-      loadOptions={loadOptions}
-    />
-    // <div>
-    //   <input
-    //     type="text"
-    //     className={imputStyle}
-    //     placeholder="Selecione a sua Cidade"
-    //   />
-    // </div>
+    <>
+      <div>
+        <input
+          type="text"
+          className={imputStyle}
+          placeholder="Selecione a sua Cidade"
+          value={inputValue} // Valor do input é controlado pelo estado
+          onChange={handleInputChange} // Manipulador de eventos para capturar alterações no input
+        />
+      </div>
+      <button
+        onClick={handleSubmit}
+        className="bg-orange-400 text-black w-[100px] m-auto py-2 rounded-lg hover:text-white hover:bg-orange-600"
+      >
+        Enviar
+      </button>
+    </>
   );
 };
 

@@ -1,9 +1,8 @@
-// import React from "react";
+import { useState } from "react";
 import { background, logo } from "@/assets/index.ts";
-import { useNavigate } from "react-router-dom";
 import Notice from "@/components/notice";
 import Search from "./search";
-import weather from "../Weather";
+import { METEO_API_URL, API_KEY } from "@/shared/apis";
 
 // type searchData = {
 //   latitude: number;
@@ -11,20 +10,45 @@ import weather from "../Weather";
 //   hourly: string;
 // };
 
-type data = {
-  searchData: searchData;
-};
-
 const Home = () => {
-  const navigate = useNavigate();
+  const [currentWeather, setCurrentWeather] = useState(null);
+  const [forecast, setForecast] = useState(null);
 
-  const pesquisa = () => {
-    navigate("/resultado");
+  const handleOnSearchChange = (searchData) => {
+    return new Promise((resolve, reject) => {
+      console.log(searchData);
+      const [lat, lon] = searchData.value.split(" ");
+
+      const currentWeatherFetch = fetch(
+        `${METEO_API_URL}/weather?lat=${lat}&lon=${lon}&appid=${METEO_API_KEY}`
+      );
+      const forecastFetch = fetch(
+        `${METEO_API_URL}/forecast?lat=${lat}&lon=${lon}&appid=${METEO_API_KEY}`
+      );
+
+      Promise.all([currentWeatherFetch, forecastFetch])
+        .then(async (response) => {
+          const weatherResponse = await response[0].json();
+          const forecastResponse = await response[1].json();
+
+          const currentWeather = { city: searchData.label, ...weatherResponse };
+          setCurrentWeather(currentWeather);
+          setForecast({ city: searchData.label, ...forecastResponse });
+
+          resolve(currentWeather); // Resolva a promessa com currentWeather
+        })
+        .catch((err) => {
+          console.log(err);
+          // reject(err); // Rejeite a promessa se houver um erro
+        });
+      const getCurrentWeatherData = () => {
+        return currentWeather;
+      };
+    });
   };
 
-  const handleOnSearchChange = (searchData: data) => {
-    console.log(searchData);
-  };
+  // console.log(currentWeather);
+  // console.log(forecast);
 
   return (
     <>
@@ -45,14 +69,8 @@ const Home = () => {
             </div>
 
             <div className="flex flex-col gap-4">
-              <Search onSearchChange={handleOnSearchChange} />
+              <Search />
               {/* Enviar solicitação API */}
-              <button
-                onClick={pesquisa}
-                className="bg-orange-400 text-black w-[100px] m-auto py-2 rounded-lg hover:text-white hover:bg-orange-600"
-              >
-                Enviar
-              </button>
             </div>
           </div>
           {/* NOTICE */}
@@ -66,3 +84,5 @@ const Home = () => {
 };
 
 export default Home;
+
+export const getCurrentWeather = Home;
