@@ -1,48 +1,25 @@
-import { useState, useEffect } from "react";
-// import { AsyncPaginate } from "react-select-async-paginate";
+import { useState } from "react";
 import { GEO_API_URL, API_KEY, METEO_API_URL } from "@/shared/apis";
-
-// type Props = {
-//   onSearchChange: (searchData: searchData) => void;
-//   latitude: number;
-//   longitude: number;
-//   name: string;
-//   countryCode: number;
-// };
-
-// type dados = {
-//   longitude: number;
-//   latitude: number;
-//   name: string;
-//   countryCode: number;
-// };
-
-// type searchData = {
-//   longitude: number;
-//   latitude: number;
-//   name: string;
-//   countryCode: number;
-// };
+import { CurrentWeather } from "../Weather/today";
 
 const imputStyle =
   "rounded-lg  w-[300px] placeholder:text-center p-1 focus:border-blue-500 focus:outline-none text-[18px]";
 
+// export const teste = (valorTeste: {}) => {
+//   const currentWeather = valorTeste;
+//   return currentWeather;
+// };
+
 const Search = () => {
-  const [data, setData] = useState(null);
-
   //função para pegar o valor do input
-
   const [inputValue, setInputValue] = useState<string>("");
-
-  // const showWeatherData = (city: {}) => {
-  //   console.log(city);
-  // };
 
   //atualiza o valor do input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value); // Atualiza o estado com o valor do input
   };
 
+  //Hooks para atualizar a localização
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
 
@@ -53,12 +30,12 @@ const Search = () => {
         const resultApi = await fetch(apiGeoCodeUrl);
         const geoCode = await resultApi.json();
 
-        if (geoCode && geoCode[0].lon !== 0) {
+        if (geoCode && geoCode[0].lon != 0) {
           setLatitude(geoCode[0].lat);
           setLongitude(geoCode[0].lon);
           console.log("Dados da API:", geoCode);
         } else {
-          console.error("Dados de localização não encontrados ou inválidos.");
+          console.log("Dados de localização não encontrados ou inválidos.");
         }
       };
 
@@ -66,15 +43,14 @@ const Search = () => {
         const apiWeatherUrl = `${METEO_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
         const resultApi = await fetch(apiWeatherUrl);
         const resultApiJson = await resultApi.json();
-
-        console.log(resultApiJson);
+        //exportando o resultado da API
       };
 
-      // Aqui você pode enviar o valor do input para a API ou realizar qualquer outra ação desejada
+      //Enviar o valor do input para a API ou realizar qualquer outra ação desejada
       getWeatherData(inputValue);
       getGeoCode(inputValue);
     } catch (error) {
-      console.error("erro ao buscar");
+      console.error("error ao buscar");
     }
   };
 
@@ -95,6 +71,11 @@ const Search = () => {
       >
         Enviar
       </button>
+      <p className="text-white">
+        {latitude}
+        {longitude}
+      </p>
+      <CurrentWeather />
     </>
   );
 };

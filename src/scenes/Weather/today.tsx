@@ -1,10 +1,13 @@
-const today = () => {
+export const CurrentWeather = (testandoValor: {}) => {
+  const todayWeather = testandoValor;
+  console.log(todayWeather);
+
   return (
     <div className="w-[600px] h-[320px] bg-slate-400 rounded-lg text-black flex justify-between flex-col">
       <div className="w-11/12 m-auto flex flex-col justify-between bg-red-400 h-5/6">
         <div className="flex justify-between">
           <div>
-            <p>clima atual</p>
+            <p></p>
             <p>15:50</p>
           </div>
           <div>
@@ -42,4 +45,4 @@ const today = () => {
   );
 };
 
-export default today;
+export default CurrentWeather;
