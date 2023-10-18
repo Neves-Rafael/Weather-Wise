@@ -32,5 +32,3 @@ const Home = () => {
 };
 
 export default Home;
-
-export const getCurrentWeather = Home;

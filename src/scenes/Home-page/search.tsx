@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { GEO_API_URL, API_KEY, METEO_API_URL } from "@/shared/apis";
+import { Today } from "../components/today";
+import { DayOne } from "../components/dayone";
+import { DayTwo } from "../components/daytwo";
+import { Forecast } from "../components/forecast";
 
 const imputStyle =
   "rounded-lg  w-[300px] placeholder:text-center p-1 focus:border-blue-500 focus:outline-none text-[18px]";
@@ -20,7 +24,8 @@ const Search = () => {
   //Hooks para pegar dados do retorno do Weather API
   const [dados, setDados] = useState({
     name: "",
-    country: "",
+    wind: 0,
+    visibility: 5000,
     main: {
       temp: 0,
       feelsLike: 0,
@@ -34,10 +39,6 @@ const Search = () => {
       description: "",
       icon: "",
     },
-    visibility: 5000,
-    wind: {
-      speed: 0,
-    },
   });
 
   const handleSubmit = async () => {
@@ -50,29 +51,86 @@ const Search = () => {
         if (geoCode && geoCode[0].lon != 0) {
           setLatitude(geoCode[0].lat);
           setLongitude(geoCode[0].lon);
-          console.log("Dados da API:", geoCode);
+          // console.log("Dados da API:", geoCode);
         } else {
           console.log("Dados de localização não encontrados ou inválidos.");
         }
       };
 
       const getWeatherData = async (inputValue: string) => {
-        const apiWeatherUrl = `${METEO_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}`;
+        const apiWeatherUrl = `${METEO_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
         const resultApi = await fetch(apiWeatherUrl);
         const resultApiJson = await resultApi.json();
-        console.log("Dados da API:", resultApiJson);
+        console.log("dados da API:", resultApiJson);
+        setDados({
+          ...dados,
+          name: resultApiJson.name,
+          wind: resultApiJson.wind.speed,
+          visibility: resultApiJson.visibility,
+          main: {
+            ...dados.main,
+            temp: resultApiJson.main.temp.toString().substring(0, 2),
+            feelsLike: resultApiJson.main.feels_like.toString().substring(0, 2),
+            humidity: resultApiJson.main.humidity,
+            tempMax: resultApiJson.main.temp_max.toString().substring(0, 2),
+            tempMin: resultApiJson.main.temp_min.toString().substring(0, 2),
+            pressure: resultApiJson.main.pressure,
+          },
+          weather: {
+            ...dados.weather,
+            mainState: resultApiJson.weather[0].main,
+            description: resultApiJson.weather[0].description.toUpperCase(),
+            icon: resultApiJson.weather[0].icon,
+          },
+        });
       };
 
       //Enviar o valor do input para a API ou realizar qualquer outra ação desejada
       getWeatherData(inputValue);
       getGeoCode(inputValue);
+      getIcon(dados.weather.icon);
     } catch (error) {
       console.error("error ao buscar");
     }
   };
 
+  type Icon = {
+    [key: string]: string;
+  };
+
+  //pegar o icone do clima baseado no id retornado da api
+  const iconContent: Icon[] = [
+    { "01d": "day1" },
+    { "02d": "day2" },
+    { "03d": "day3" },
+    { "04d": "day4" },
+    { "05d": "day5" },
+    { "01n": "night1" },
+    { "02n": "night2" },
+    { "03n": "night3" },
+    { "04n": "night4" },
+    { "05n": "night5" },
+  ];
+
+  const [imagem, setImagem] = useState<string>("01d");
+
+  const getIcon = (idIcon: string) => {
+    if (idIcon != "") {
+      for (let i = 0; i < iconContent.length; i++) {
+        const iconObj = iconContent[i];
+        const iconKey = Object.keys(iconObj)[0]; // Obtém a chave do objeto
+        const iconValue = iconObj[iconKey]; // Obtém o valor associado à chave
+
+        if (iconKey === idIcon) {
+          setImagem(iconKey);
+          return iconValue;
+        }
+      }
+    }
+  };
+
   return (
-    <>
+    <div>
       {/* Imput */}
       <div className="flex justify-center">
         <input
@@ -84,137 +142,34 @@ const Search = () => {
         />
       </div>
       {/* Button Enviar */}
-      <button
-        onClick={handleSubmit}
-        className="bg-orange-400 text-black w-[100px] m-auto py-2 rounded-lg hover:text-white hover:bg-orange-600"
-      >
-        Enviar
-      </button>
-
-      {/* Resultado */}
+      <div className="flex justify-center">
+        <button
+          onClick={handleSubmit}
+          className="bg-orange-400 text-black w-[100px] m-auto py-2 rounded-lg hover:text-white hover:bg-orange-600"
+        >
+          Enviar
+        </button>
+        {/* Resultado */}
+      </div>
 
       <div>
-        <div className="flex m-auto w-full gap-20">
+        <div className="flex m-auto w-full h-full gap-20">
           {/* TODAY */}
-          <div>
-            <div className="w-[600px] h-[320px] bg-slate-400 rounded-lg text-black flex justify-between flex-col">
-              <div className="w-11/12 m-auto flex flex-col justify-between bg-red-400 h-5/6">
-                <div className="flex justify-between">
-                  <div>
-                    <p>Clima Atual</p>
-                    <p>Horário atual aqui</p>
-                  </div>
-                  <div>
-                    <button>está vendo um clima diferente?</button>
-                  </div>
-                </div>
-                <div className="flex justify-between">
-                  <p>imagem do clima correspondente</p>
-                  <div>
-                    <p>{dados.main.temp}</p>
-                    <p>{`min ${dados.main.tempMin} max ${dados.main.tempMax}`}</p>
-                  </div>
-                  <div>
-                    <p>atualizar de acordo com o retorno da api</p>
-                    <p>{`Sensação térmica ${dados.main.feelsLike}`}</p>
-                  </div>
-                </div>
-                <div>
-                  <p>
-                    (se possivel conteúdo adicional sobre como está o clima)
-                  </p>
-                </div>
-                <div className="flex flex-col">
-                  <div>
-                    <p>-----------</p>
-                  </div>
-                  <div className="flex">
-                    <p>qualidade do ar</p>
-                    <p>{dados.wind.speed}</p>
-                    <p>{dados.main.humidity}</p>
-                    <p>{dados.visibility}</p>
-                    <p>{dados.main.pressure}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Today dados={dados} inputValue={inputValue} imagem={imagem} />
           {/* BARRA DE PESQUISA */}
-          <div>
+          <div className="h-full flex flex-col gap-10">
             {/* DAY 1 */}
-            <div className="mb-[50px]">
-              <div className="w-[600px] h-[135px] bg-slate-400 rounded-lg flex justify-center">
-                <div className="w-11/12 m-auto flex gap-20 bg-red-400 h-5/6">
-                  <div>
-                    <p>imagem</p>
-                    <p>amanhã</p>
-                  </div>
-                  <div className="flex flex-col justify-between">
-                    <div className="flex justify-around">
-                      <p>19° - 29°C</p>
-                      <div>
-                        <p>chuvas</p>
-                        <p>sensação térmica</p>
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <p>qualidade do ar</p>
-                      <p>vento</p>
-                      <p>umidade</p>
-                      <p>visibilidade</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <DayOne dados={dados} inputValue={inputValue} imagem={imagem} />
             {/* DAY 2 */}
-            <div>
-              <div className="w-[600px] h-[135px] bg-slate-400 rounded-lg flex justify-center">
-                <div className="w-11/12 m-auto flex gap-20 bg-red-400 h-5/6">
-                  <div>
-                    <p>imagem</p>
-                    <p>amanhã</p>
-                  </div>
-                  <div className="flex flex-col justify-between">
-                    <div className="flex justify-around">
-                      <p>19° - 29°C</p>
-                      <div>
-                        <p>chuvas</p>
-                        <p>sensação térmica</p>
-                      </div>
-                    </div>
-                    <div className="flex">
-                      <p>qualidade do ar</p>
-                      <p>vento</p>
-                      <p>umidade</p>
-                      <p>visibilidade</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <DayTwo dados={dados} inputValue={inputValue} imagem={imagem} />
           </div>
         </div>
         {/* FORECAST */}
-        <div>
-          <div className="bg-slate-300">
-            <div>
-              //".map(aqui)"
-              <div className="w-[175px] h-[150px] bg-slate-400 flex flex-col justify-between">
-                <div>ter.10</div>
-                <div className="flex justify-between w-full">
-                  <div>icone</div>
-                  <div>
-                    <p>32°C</p>
-                    <p>20°C</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="mt-10">
+          <Forecast dados={dados} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
