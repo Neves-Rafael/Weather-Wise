@@ -1,7 +1,10 @@
-import { night2 } from "@/assets";
-
-export function Today(props) {
+export function Today(props: {
+  dados: any;
+  inputValue: string;
+  imagem: string;
+}) {
   const caminho = `./src/assets/${props.imagem}.svg`;
+
   return (
     <div className="w-[600px] h-[320px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-11/12 m-auto flex flex-col justify-between  h-5/6">
@@ -30,7 +33,7 @@ export function Today(props) {
           </div>
         </div>
         <div>
-          {/* <p>(se possivel conteúdo adicional sobre como está o clima)</p> */}
+          {/* <p>(se possível conteúdo adicional sobre como está o clima)</p> */}
         </div>
         <div className="flex flex-col">
           <div className="h-[2px] bg-slate-300 mb-4" />

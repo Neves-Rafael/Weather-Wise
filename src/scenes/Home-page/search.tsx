@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { GEO_API_URL, API_KEY, METEO_API_URL } from "@/shared/apis";
+import {
+  GEO_API_URL,
+  API_KEY,
+  METEO_API_URL,
+  FORESCAST_API_URL,
+} from "@/shared/apis";
 import { Today } from "../components/today";
 import { DayOne } from "../components/dayone";
 import { DayTwo } from "../components/daytwo";
@@ -10,7 +15,7 @@ const imputStyle =
 
 const Search = () => {
   //função para pegar o valor do input
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState("brasília");
 
   //atualiza o valor do input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -18,119 +23,103 @@ const Search = () => {
   };
 
   //Hooks para atualizar a localização e enviar para a API
-  const [latitude, setLatitude] = useState(0);
-  const [longitude, setLongitude] = useState(0);
+  const [imagem, setImagem] = useState("01d");
 
   //Hooks para pegar dados do retorno do Weather API
   const [dados, setDados] = useState({
-    name: "",
-    wind: 0,
+    name: "Brasília",
+    wind: 12,
     visibility: 5000,
     main: {
-      temp: 0,
-      feelsLike: 0,
-      humidity: 5000,
-      tempMax: 0,
-      tempMin: 0,
-      pressure: 0,
+      temp: 26,
+      feelsLike: 25,
+      humidity: 20,
+      tempMax: 28,
+      tempMin: 22,
+      pressure: 1010,
     },
     weather: {
-      mainState: "",
-      description: "",
-      icon: "",
+      description: "Nublado",
+      icon: "01d",
     },
   });
 
-  const handleSubmit = async () => {
-    try {
-      const getGeoCode = async (inputValue: string) => {
-        const apiGeoCodeUrl = `${GEO_API_URL}${inputValue}&limit=1&appid=${API_KEY}`;
-        const resultApi = await fetch(apiGeoCodeUrl);
-        const geoCode = await resultApi.json();
+  //Hook para pegar dados do retorno do ForeCast API
+  const [forecastDados, setForecastDados] = useState({
+    tempMax: 0,
+    tempMin: 0,
+    icon: "0",
+    data: "",
+  });
+  console.log(forecastDados);
 
-        if (geoCode && geoCode[0].lon != 0) {
-          setLatitude(geoCode[0].lat);
-          setLongitude(geoCode[0].lon);
-          // console.log("Dados da API:", geoCode);
-        } else {
-          console.log("Dados de localização não encontrados ou inválidos.");
-        }
-      };
+  //solicitação API tempo da semana
+  const getForecasWeather = async (latitude: string, longitude: string) => {
+    const forecastApi = `${FORESCAST_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
+    const resultForecastApi = await fetch(forecastApi);
+    const resultForecastApiJson = await resultForecastApi.json();
+    console.log("dados da API:", resultForecastApiJson);
 
-      const getWeatherData = async (inputValue: string) => {
-        const apiWeatherUrl = `${METEO_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
-        const resultApi = await fetch(apiWeatherUrl);
-        const resultApiJson = await resultApi.json();
-        console.log("dados da API:", resultApiJson);
-        setDados({
-          ...dados,
-          name: resultApiJson.name,
-          wind: resultApiJson.wind.speed,
-          visibility: resultApiJson.visibility,
-          main: {
-            ...dados.main,
-            temp: resultApiJson.main.temp.toString().substring(0, 2),
-            feelsLike: resultApiJson.main.feels_like.toString().substring(0, 2),
-            humidity: resultApiJson.main.humidity,
-            tempMax: resultApiJson.main.temp_max.toString().substring(0, 2),
-            tempMin: resultApiJson.main.temp_min.toString().substring(0, 2),
-            pressure: resultApiJson.main.pressure,
-          },
-          weather: {
-            ...dados.weather,
-            mainState: resultApiJson.weather[0].main,
-            description: resultApiJson.weather[0].description.toUpperCase(),
-            icon: resultApiJson.weather[0].icon,
-          },
-        });
-      };
-
-      //Enviar o valor do input para a API ou realizar qualquer outra ação desejada
-      getWeatherData(inputValue);
-      getGeoCode(inputValue);
-      getIcon(dados.weather.icon);
-    } catch (error) {
-      console.error("error ao buscar");
-    }
+    setForecastDados({
+      ...forecastDados,
+      tempMax: resultForecastApiJson.list[0].main.temp_max
+        .toString()
+        .substring(0, 2),
+      tempMin: resultForecastApiJson.list[0].main.temp_min
+        .toString()
+        .substring(0, 2),
+      icon: resultForecastApiJson.list[0].weather[0].icon,
+      data: resultForecastApiJson.list[0].dt_txt,
+    });
   };
 
-  type Icon = {
-    [key: string]: string;
+  //solicitação API tempo atual
+  const getWeatherData = async (
+    latitude: string,
+    longitude: string,
+    day: number
+  ) => {
+    const apiWeatherUrl = `${METEO_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
+    const resultApi = await fetch(apiWeatherUrl);
+    const resultApiJson = await resultApi.json();
+    //atribuindo os dados para o estado
+    setImagem(resultApiJson.weather[0].icon);
+    setDados({
+      ...dados,
+      name: resultApiJson.name,
+      wind: resultApiJson.wind.speed,
+      visibility: resultApiJson.visibility,
+      main: {
+        ...dados.main,
+        temp: resultApiJson.main.temp.toString().substring(0, 2),
+        feelsLike: resultApiJson.main.feels_like.toString().substring(0, 2),
+        humidity: resultApiJson.main.humidity,
+        tempMax: resultApiJson.main.temp_max.toString().substring(0, 2),
+        tempMin: resultApiJson.main.temp_min.toString().substring(0, 2),
+        pressure: resultApiJson.main.pressure,
+      },
+      weather: {
+        ...dados.weather,
+        description: resultApiJson.weather[0].description.toUpperCase(),
+        icon: resultApiJson.weather[0].icon,
+      },
+    });
   };
 
-  //pegar o icone do clima baseado no id retornado da api
-  const iconContent: Icon[] = [
-    { "01d": "day1" },
-    { "02d": "day2" },
-    { "03d": "day3" },
-    { "04d": "day4" },
-    { "05d": "day5" },
-    { "01n": "night1" },
-    { "02n": "night2" },
-    { "03n": "night3" },
-    { "04n": "night4" },
-    { "05n": "night5" },
-  ];
+  const getGeoCode = async (inputValue: string) => {
+    const apiGeoCodeUrl = `${GEO_API_URL}${inputValue}&limit=1&appid=${API_KEY}`;
+    const resultApi = await fetch(apiGeoCodeUrl);
+    const geoCode = await resultApi.json();
+    getWeatherData(geoCode[0].lat, geoCode[0].lon);
+    getForecasWeather(geoCode[0].lat, geoCode[0].lon);
+  };
 
-  const [imagem, setImagem] = useState<string>("01d");
-
-  const getIcon = (idIcon: string) => {
-    if (idIcon != "") {
-      for (let i = 0; i < iconContent.length; i++) {
-        const iconObj = iconContent[i];
-        const iconKey = Object.keys(iconObj)[0]; // Obtém a chave do objeto
-        const iconValue = iconObj[iconKey]; // Obtém o valor associado à chave
-
-        if (iconKey === idIcon) {
-          setImagem(iconKey);
-          return iconValue;
-        }
-      }
-    }
+  const callHandle = () => {
+    getGeoCode(inputValue);
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-5">
       {/* Imput */}
       <div className="flex justify-center">
         <input
@@ -144,7 +133,7 @@ const Search = () => {
       {/* Button Enviar */}
       <div className="flex justify-center">
         <button
-          onClick={handleSubmit}
+          onClick={callHandle}
           className="bg-orange-400 text-black w-[100px] m-auto py-2 rounded-lg hover:text-white hover:bg-orange-600"
         >
           Enviar
