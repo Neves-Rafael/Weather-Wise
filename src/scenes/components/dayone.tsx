@@ -18,7 +18,8 @@ export function DayOne(props) {
         </div>
         <div className="flex flex-col">
           <div className="h-[2px] bg-slate-300 mb-2" />
-          <div className="flex justify-around">
+          <div className="flex justify-between">
+            <p>Amanhã</p>
             <p>Vento {props.dados.wind} km/h</p>
             <p>Humidade {props.dados.main.humidity}%</p>
           </div>

@@ -58,6 +58,7 @@ const Search = () => {
     const forecastApi = `${FORESCAST_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
     const resultForecastApi = await fetch(forecastApi);
     const resultForecastApiJson = await resultForecastApi.json();
+    ForecastGenerator(resultForecastApiJson);
     console.log("dados da API:", resultForecastApiJson);
 
     setForecastDados({
@@ -118,6 +119,16 @@ const Search = () => {
     getGeoCode(inputValue);
   };
 
+  const ForecastGenerator = (forecastRecebido: any) => {
+    for (let i = 0; i < forecastRecebido.list.length; i += 8) {
+      <div>
+        <Forecast dados={forecastRecebido.list[i]} />
+      </div>;
+      // Adicionando o valor do array à div
+      // Adicionando a div ao contêiner
+    }
+  };
+
   return (
     <div className="flex flex-col gap-5">
       {/* Imput */}
@@ -155,7 +166,8 @@ const Search = () => {
         </div>
         {/* FORECAST */}
         <div className="mt-10">
-          <Forecast dados={dados} />
+          {/* <Forecast dados={forecastDados} /> */}
+          <ForecastGenerator dados={forecastDados} />
         </div>
       </div>
     </div>

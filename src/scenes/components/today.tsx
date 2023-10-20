@@ -6,7 +6,7 @@ export function Today(props: {
   const caminho = `./src/assets/${props.imagem}.svg`;
 
   return (
-    <div className="w-[600px] h-[320px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
+    <div className="w-[500px] h-[250px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-11/12 m-auto flex flex-col justify-between  h-5/6">
         <div className="flex justify-between">
           <div>
