@@ -10,6 +10,7 @@ import night2 from "./02n.svg";
 import night3 from "./03n.svg";
 import night4 from "./04n.svg";
 import night5 from "./05n.svg";
+import loading from "./Rolling-1s-200px.gif";
 
 export {
   logo,
@@ -24,4 +25,5 @@ export {
   night3,
   night4,
   night5,
+  loading,
 };

@@ -11,37 +11,53 @@ export function Today(props: {
         <div className="flex justify-between">
           <div>
             <p className="font-bold text-xl">Clima Atual</p>
-            <p>{props.inputValue}</p>
           </div>
           <div>
             <button className="bg-blue-600 text-white py-1  px-3 rounded-lg">
-              Está vendo um clima diferente?
+              <a target="_blank" href="mailto:nevesrafael.dev@gmail.com">
+                Está vendo um clima diferente?
+              </a>
             </button>
           </div>
         </div>
-        <div className="flex justify-between">
-          <img src={caminho} />
+        <div className="flex justify-between items-center">
+          <img src={caminho} className="w-[90px] h-[90px]" />
           <div>
-            <p className="text-6xl text-black font-black">
+            <p className="text-7xl text-black font-black text-center">
               {props.dados.main.temp}°C
             </p>
-            <p className="text-slate-500 font-bold">{`Min ${props.dados.main.tempMin}°C Max ${props.dados.main.tempMax}°C`}</p>
+            <p className="text-slate-500 font-bold text-xl">
+              {`Min ${props.dados.main.tempMin - 6}°C / Max ${
+                props.dados.main.tempMax
+              }°C`}
+            </p>
           </div>
           <div>
-            <p>{props.dados.weather.description}</p>
-            <p>{`Sensação térmica ${props.dados.main.feelsLike}`}</p>
+            <p className="font-bold text-lg text-center mb-4">
+              {props.dados.weather.description.toUpperCase()}
+            </p>
+            <p className="text-center">
+              Sensação térmica <br />
+              <span className="font-bold text-lg">
+                {`${props.dados.main.feelsLike}°C`}
+              </span>
+            </p>
           </div>
         </div>
-        <div>
-          {/* <p>(se possível conteúdo adicional sobre como está o clima)</p> */}
-        </div>
         <div className="flex flex-col">
-          <div className="h-[2px] bg-slate-300 mb-4" />
+          <div className="h-[2px] bg-slate-300 mb-2" />
           <div className="flex justify-between">
-            <p>Vento {props.dados.wind} km/h</p>
-            <p>Humidade {props.dados.main.humidity}%</p>
-            <p>{props.dados.visibility} Metros</p>
-            <p>Pressão {props.dados.main.pressure}</p>
+            <p>
+              <span className="font-bold">Vento</span> {props.dados.wind} km/h
+            </p>
+            <p>
+              <span className="font-bold">Humidade</span>{" "}
+              {props.dados.main.humidity}%
+            </p>
+            <p>
+              <span className="font-bold">Visibilidade</span>{" "}
+              {props.dados.visibility}M
+            </p>
           </div>
         </div>
       </div>
