@@ -1,4 +1,4 @@
-import logo from "./logo.png";
+import logo from "./01d.svg";
 import background from "./background.jpg";
 import day1 from "./01d.svg";
 import day2 from "./02d.svg";
