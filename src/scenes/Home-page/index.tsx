@@ -9,7 +9,6 @@ const Home = () => {
     useEffect(() => {
       const timer = setTimeout(() => {
         setVisible(false);
-        console.log("teste");
       }, 2500); // Ocultar a tela de carregamento após 5 segundos
 
       return () => {

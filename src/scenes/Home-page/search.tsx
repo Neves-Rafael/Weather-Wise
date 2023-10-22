@@ -4,7 +4,6 @@ import {
   API_KEY,
   METEO_API_URL,
   FORESCAST_API_URL,
-  API_FLAG,
 } from "@/shared/apis";
 import { Today } from "../components/today";
 import { DayOne } from "../components/dayone";
@@ -73,8 +72,6 @@ const Search = () => {
     ],
   });
 
-  const [flag, setFlag] = useState("BR");
-
   //solicitação API tempo da semana
   const getForecasWeather = async (latitude: string, longitude: string) => {
     const forecastApi = `${FORESCAST_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
@@ -123,8 +120,6 @@ const Search = () => {
       const geoCode = await resultApi.json();
       getWeatherData(geoCode[0].lat, geoCode[0].lon);
       getForecasWeather(geoCode[0].lat, geoCode[0].lon);
-      console.log(geoCode);
-      setFlag(geoCode[0].country);
     } catch (e) {
       setErrorMessage("Erro ao encontrar a sua localização, tente novamente.");
     }
@@ -138,13 +133,13 @@ const Search = () => {
   const MeuComponente = () => {
     useEffect(() => {
       // Esta função será executada uma única vez quando o componente for montado
-      console.log("A função foi executada automaticamente.");
+      // console.log("A função foi executada automaticamente.");
 
       callHandle();
 
       // Se precisar realizar ações quando o componente for desmontado, retorne uma função de limpeza do useEffect
       return () => {
-        console.log("O componente está sendo desmontado.");
+        // console.log("O componente está sendo desmontado.");
         // Coloque lógica de limpeza aqui, se necessário
       };
     }, []); // O array de dependências vazio garante que este efeito só ocorra uma vez, como componentDidMount
@@ -152,7 +147,7 @@ const Search = () => {
     return <div>{/* Conteúdo do seu componente */}</div>;
   };
   //chamada automática do componente
-  // MeuComponente();
+  MeuComponente();
 
   return (
     <>
@@ -166,13 +161,10 @@ const Search = () => {
             value={inputValue} // Valor do input é controlado pelo estado
             onChange={handleInputChange} // Manipulador de eventos para capturar alterações no input
           />
-          <p className="absolute mt-14 text-black font-bold p-2 rounded-lg">
+          <p className="absolute mt-14 text-black font-bold p-2 text-lg ">
             {errorMessage}
           </p>
-          <p className="absolute mt-14 left-20 bg-slate-200 text-black font-bold py-1 px-2 rounded-lg flex items-center text-xl gap-2">
-            {inputValue}
-            <img src={`https://flagsapi.com/${flag}/flat/32.png`} />
-          </p>
+
           {/* Button Enviar */}
           <div className="flex justify-center">
             <button
@@ -188,12 +180,7 @@ const Search = () => {
         <div className="bg-black bg-opacity-30 p-5 rounded-lg">
           <div className="flex gap-5">
             {/* TODAY */}
-            <Today
-              dados={dados}
-              inputValue={inputValue}
-              imagem={imagem}
-              flag={flag}
-            />
+            <Today dados={dados} inputValue={inputValue} imagem={imagem} />
             {/* BARRA DE PESQUISA */}
             <div className="h-full flex flex-col gap-[10px]">
               {/* DAY 1 */}
