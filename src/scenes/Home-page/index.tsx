@@ -1,6 +1,6 @@
 import { background, logo, loading } from "@/assets/index.ts";
 import Search from "./search";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
   const LoadingScreen = () => {

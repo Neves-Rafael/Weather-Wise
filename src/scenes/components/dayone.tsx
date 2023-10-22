@@ -8,7 +8,6 @@ export function DayOne(props: any) {
     temp = props.dados.list[n].main.temp.toString().substring(0, 2),
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2),
     tempMax = props.dados.list[n].main.temp_min.toString().substring(0, 2),
-    description = props.dados.list[n].weather[0].description.toUpperCase(),
     wind = props.dados.list[n].wind.speed,
     humidity = props.dados.list[n].main.humidity;
 
