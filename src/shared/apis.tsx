@@ -1,4 +1,4 @@
-export const GEO_API_URL = "http://api.openweathermap.org/geo/1.0/direct?q=";
+export const GEO_API_URL = "https://api.openweathermap.org/geo/1.0/direct?q=";
 //{city name}&limit=5&appid={API key}
 
 export const METEO_API_URL = "https://api.openweathermap.org/data/2.5/weather?";
