@@ -27,3 +27,6 @@ export {
   night5,
   loading,
 };
+
+{
+}

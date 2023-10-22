@@ -1,9 +1,11 @@
+import icons from "@/assets/icons.json";
+
 export function Today(props: {
   dados: any;
   inputValue: string;
   imagem: string;
 }) {
-  const caminho = `./src/assets/${props.imagem}.svg`;
+  // const caminho = {icons.icons.{}};
 
   return (
     <div className="w-[500px] h-[250px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
@@ -21,7 +23,10 @@ export function Today(props: {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <img src={caminho} className="w-[90px] h-[90px]" />
+          <img
+            src={`${icons.icons}.${props.imagem}`}
+            className="w-[90px] h-[90px]"
+          />
           <div>
             <p className="text-7xl text-black font-black text-center">
               {props.dados.main.temp}°C

@@ -1,0 +1,25 @@
+{
+  "icons": {
+    "01d": "./src/assets/01d.svg",
+    "02d": "./src/assets/02d.svg",
+    "03d": "./src/assets/03d.svg",
+    "04d": "./src/assets/04d.svg",
+    "05d": "./src/assets/05d.svg",
+    "06d": "./src/assets/06d.svg",
+    "07d": "./src/assets/07d.svg",
+    "08d": "./src/assets/08d.svg",
+    "09d": "./src/assets/09d.svg",
+    "10d": "./src/assets/10d.svg",
+    "01n": "./src/assets/01n.svg",
+    "02n": "./src/assets/02n.svg",
+    "03n": "./src/assets/03n.svg",
+    "04n": "./src/assets/04n.svg",
+    "05n": "./src/assets/05n.svg",
+    "06n": "./src/assets/06n.svg",
+    "07n": "./src/assets/07n.svg",
+    "08n": "./src/assets/08n.svg",
+    "09n": "./src/assets/09n.svg",
+    "10n": "./src/assets/10n.svg",
+    "50n": "./src/assets/50n.svg"
+  }
+}
