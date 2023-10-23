@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 import {
   day1,
@@ -28,8 +28,6 @@ export function Today(props: {
   inputValue: string;
   imagem: string;
 }) {
-  const icons = props.imagem;
-
   // switch (icons) {
   //   case "01d":
   //     setImagem(day1);
@@ -96,7 +94,30 @@ export function Today(props: {
   //     break;
   // }
 
-  const iconsConfig = {
+  type Icon =
+    | "01d"
+    | "02d"
+    | "03d"
+    | "04d"
+    | "05d"
+    | "06d"
+    | "07d"
+    | "08d"
+    | "09d"
+    | "10d"
+    | "01n"
+    | "02n"
+    | "03n"
+    | "04n"
+    | "05n"
+    | "06n"
+    | "07n"
+    | "08n"
+    | "09n"
+    | "10n"
+    | "50n";
+  type IconConfig = Record<string, string>;
+  const iconsConfig: IconConfig = {
     "01d": day1,
     "02d": day2,
     "03d": day3,
@@ -120,6 +141,7 @@ export function Today(props: {
     "50n": night50,
   };
 
+  const icons: string = props.imagem;
   const imagem = iconsConfig[icons];
 
   console.log(imagem);
