@@ -1,4 +1,4 @@
-import { background, logo, loading } from "@/assets/index.ts";
+import { logo, loading } from "@/assets/index.ts";
 import Search from "./search";
 import { useEffect, useState } from "react";
 
