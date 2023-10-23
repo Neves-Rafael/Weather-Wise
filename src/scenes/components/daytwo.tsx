@@ -41,7 +41,7 @@ export function DayTwo(props: any) {
     <div className="w-[400px] h-[120px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-[95%] h-[95%] m-auto flex flex-col justify-between p-2">
         <div className="flex justify-between items-center">
-          <img src={importImagem} className="mr-2 w-[70px] h-[70px]" />
+          <img src={icon} className="mr-2 w-[70px] h-[70px]" />
           <div>
             <p className="text-5xl text-black font-black">{temp}°C</p>
           </div>
