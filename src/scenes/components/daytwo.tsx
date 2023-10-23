@@ -29,12 +29,12 @@ export function DayTwo(props: any) {
     wind = props.dados.list[n].wind.speed,
     humidity = props.dados.list[n].main.humidity;
 
-  const importImagem = `./src/assets/${icon}.svg`;
-  const dynamicImport = async () => {
-    const icons = await import(importImagem);
-    console.log(importImagem);
-  };
-  dynamicImport();
+  // const importImagem = `./src/assets/${icon}.svg`;
+  // const dynamicImport = async () => {
+  //   const icons = await import(importImagem);
+  //   console.log(importImagem);
+  // };
+  // dynamicImport();
 
   // const caminho = `./src/assets/${icon}.svg`;
   return (
