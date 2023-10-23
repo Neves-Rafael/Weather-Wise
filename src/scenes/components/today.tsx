@@ -1,12 +1,15 @@
-import icons from "@/assets/icons.json";
-
+import { useEffect, useState } from "react";
 export function Today(props: {
   dados: any;
   inputValue: string;
   imagem: string;
 }) {
-  // const caminho = {icons.icons.{}};
-
+  const importImagem = `./src/assets/${props.imagem}.svg`;
+  const dynamicImport = async () => {
+    const icons = await import(importImagem);
+    console.log(importImagem);
+  };
+  dynamicImport();
   return (
     <div className="w-[500px] h-[250px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-11/12 m-auto flex flex-col justify-between  h-5/6">
@@ -23,16 +26,13 @@ export function Today(props: {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <img
-            src={`${icons.icons}.${props.imagem}`}
-            className="w-[90px] h-[90px]"
-          />
+          <img src={importImagem} className="w-[90px] h-[90px]" />
           <div>
             <p className="text-7xl text-black font-black text-center">
               {props.dados.main.temp}°C
             </p>
             <p className="text-slate-500 font-bold text-xl">
-              {`Min ${props.dados.main.tempMin - 6}°C / Max ${
+              {`Min ${props.dados.main.tempMin - 6}°C /Max ${
                 props.dados.main.tempMax
               }°C`}
             </p>

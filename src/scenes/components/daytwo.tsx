@@ -29,12 +29,19 @@ export function DayTwo(props: any) {
     wind = props.dados.list[n].wind.speed,
     humidity = props.dados.list[n].main.humidity;
 
-  const caminho = `https://incomparable-gingersnap-192d49.netlify.app/src/assets/${icon}.svg`;
+  const importImagem = `./src/assets/${icon}.svg`;
+  const dynamicImport = async () => {
+    const icons = await import(importImagem);
+    console.log(importImagem);
+  };
+  dynamicImport();
+
+  // const caminho = `./src/assets/${icon}.svg`;
   return (
     <div className="w-[400px] h-[120px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-[95%] h-[95%] m-auto flex flex-col justify-between p-2">
         <div className="flex justify-between items-center">
-          <img src={caminho} className="mr-2 w-[70px] h-[70px]" />
+          <img src={importImagem} className="mr-2 w-[70px] h-[70px]" />
           <div>
             <p className="text-5xl text-black font-black">{temp}°C</p>
           </div>

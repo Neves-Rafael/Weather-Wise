@@ -11,7 +11,7 @@ export function DayOne(props: any) {
     wind = props.dados.list[n].wind.speed,
     humidity = props.dados.list[n].main.humidity;
 
-  const caminho = `https://incomparable-gingersnap-192d49.netlify.app/src/assets/${icon}.svg`;
+  const caminho = `./src/assets/${icon}.svg`;
   return (
     <div className="w-[400px] h-[120px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-[95%] h-[95%] m-auto flex flex-col justify-between p-2">

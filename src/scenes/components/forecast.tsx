@@ -26,7 +26,7 @@ export function Forecast(props: any) {
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2) - 6,
     tempMax = props.dados.list[n].main.temp_min.toString().substring(0, 2);
 
-  const caminho = `https://incomparable-gingersnap-192d49.netlify.app/src/assets/${icon}.svg`;
+  const caminho = `./src/assets/${icon}.svg`;
   return (
     <div className="bg-gray-400 text-white w-[175px] h-[125px] flex justify-between items-center px-4 py-1 rounded-lg">
       <div className="flex flex-col justify-center gap-2 h-full">
