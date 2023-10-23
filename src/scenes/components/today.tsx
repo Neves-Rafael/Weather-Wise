@@ -1,17 +1,18 @@
 // import { useEffect, useState } from "react";
-import { day1 } from "@/assets/index";
+import { useState } from "react";
+// import { day1 } from "@/assets/index";
 export function Today(props: {
   dados: any;
   inputValue: string;
   imagem: string;
 }) {
-  // const importImagem = `./src/assets/${props.imagem}.svg`;
-  // const dynamicImport = async () => {
-  //   const icons = await import(importImagem);
-  //   console.log(importImagem);
-  //   console.log(day1);
-  // };
-  // dynamicImport();
+  const [icons, setIcons] = useState("day1");
+  const tentativaImport = async () => {
+    const icons = await import("@/assets/01d.svg");
+    setIcons(icons.default);
+    console.log(tentativaImport);
+  };
+
   return (
     <div className="w-[500px] h-[250px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-11/12 m-auto flex flex-col justify-between  h-5/6">
@@ -28,7 +29,7 @@ export function Today(props: {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <img src={day1} className="w-[90px] h-[90px]" />
+          <img src={icons} className="w-[90px] h-[90px]" />
           <div>
             <p className="text-7xl text-black font-black text-center">
               {props.dados.main.temp}°C
