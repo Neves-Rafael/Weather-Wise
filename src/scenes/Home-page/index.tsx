@@ -18,7 +18,7 @@ const Home = () => {
 
     return visible ? (
       <div className="fixed top-0 bottom-0 left-0 right-0 bg-white z-30 flex flex-col gap-6 justify-center items-center">
-        <p className="text-3xl font-bold">Seja Bem vindo!</p>
+        <p className="md:text-3xl font-bold">Seja Bem vindo!</p>
         <img src={loading} className="w-16 h-16" />
       </div>
     ) : null;
@@ -29,18 +29,22 @@ const Home = () => {
       <div>
         <LoadingScreen />
       </div>
-      <div className="w-screen h-screen flex items-center justify-center">
+      <div className="w-screen  flex items-center justify-center bg-blue-950">
         {/* background */}
         <img
-          src={background}
-          className="object-cover w-full h-full z-[-1] absolute brightness-75"
+        // src={background}
+        // className="object-cover w-full h-full z-[-1]  absolute brightness-75"
         />
         <div className="flex items-center justify-center flex-col mt-20">
           {/* LOGO*/}
-          <div className="flex items-center flex-col gap-[50px]  h-full">
+          <div className="flex items-center flex-col gap-[50px] h-full pt-32">
             <div className="flex flex-col items-center">
-              <img src={logo} alt="" className="w-[100px] h-[100px]" />
-              <p className="text-4xl text-center text-white font-bold">
+              <img
+                src={logo}
+                alt=""
+                className=" w-[50px] md:w-[100px] md:h-[100px]"
+              />
+              <p className="md:text-4xl text-center text-white font-bold">
                 Weather Wise
               </p>
             </div>

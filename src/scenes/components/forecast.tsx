@@ -48,7 +48,9 @@ export function Forecast(props: any) {
 
   const icon = props.dados.list[n].weather[0].icon,
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2) - 6,
-    tempMax = props.dados.list[n].main.temp_min.toString().substring(0, 2);
+    tempMax =
+      parseInt(props.dados.list[n].main.temp_min.toString().substring(0, 2)) +
+      6;
 
   type IconConfig = Record<string, string>;
   const iconsConfig: IconConfig = {
@@ -81,14 +83,14 @@ export function Forecast(props: any) {
   console.log(imagem);
 
   return (
-    <div className="bg-gray-400 text-white w-[175px] h-[125px] flex justify-between items-center px-4 py-1 rounded-lg">
+    <div className="bg-gray-400 text-white w-[115px] h-[100px] md:w-[175px] md:h-[125px] flex justify-between items-center px-4 py-1 rounded-lg">
       <div className="flex flex-col justify-center gap-2 h-full">
         <p className="font-bold text-xl">{somar7Dias(props.day)}</p>
-        <img className="w-[70px] h-[70px]" src={imagem} />
+        <img className="w-14 h-14md:w-[70px] md:h-[70px]" src={imagem} />
       </div>
       <div className="flex flex-col justify-around h-full">
-        <p className="font-bold text-4xl">{tempMax}°</p>
-        <p className="font-bold text-4xl">{tempMin}°</p>
+        <p className="font-bold text-2xl md:text-4xl">{tempMax}°</p>
+        <p className="font-bold text-2xl md:text-4xl">{tempMin}°</p>
       </div>
     </div>
   );

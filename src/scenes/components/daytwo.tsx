@@ -48,7 +48,9 @@ export function DayTwo(props: any) {
   const icon = props.dados.list[n].weather[0].icon,
     temp = props.dados.list[n].main.temp.toString().substring(0, 2),
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2),
-    tempMax = props.dados.list[n].main.temp_min.toString().substring(0, 2),
+    tempMax =
+      parseInt(props.dados.list[n].main.temp_min.toString().substring(0, 2)) +
+      4,
     wind = props.dados.list[n].wind.speed,
     humidity = props.dados.list[n].main.humidity;
 
@@ -82,29 +84,34 @@ export function DayTwo(props: any) {
 
   console.log(imagem);
   return (
-    <div className="w-[400px] h-[120px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
+    <div className="w-[250px] md:w-[400px] md:h-[120px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-[95%] h-[95%] m-auto flex flex-col justify-between p-2">
         <div className="flex justify-between items-center">
-          <img src={imagem} className="mr-2 w-[70px] h-[70px]" />
+          <img
+            src={imagem}
+            className="mr-2 w-12 h-12 md:w-[70px] md:h-[70px]"
+          />
           <div>
-            <p className="text-5xl text-black font-black">{temp}°C</p>
+            <p className="text-3xl text-black font-black">{temp}°C</p>
           </div>
           <div>
-            <p className="text-slate-500 font-bold text-xl">{`Min ${
+            <p className="text-slate-500 font-bold text-sm md:text-xl">{`Min ${
               tempMin - 7
             }°C `}</p>
-            <p className="text-slate-500 font-bold text-xl">{` Max ${tempMax}°C`}</p>
+            <p className="text-slate-500 font-bold text-sm md:text-xl">{` Max ${tempMax}°C`}</p>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="h-[2px] bg-slate-300 mt-2" />
-          <div className="flex justify-between">
-            <p className="ml-2 font-bold">{somar7Dias(2)}</p>
-            <p>
-              <span className="font-bold">Vento</span> {wind} km/h
+          <div className="flex justify-between text-center">
+            <p className=" font-bold pt-2 pr-[51px] md:pr-0 ">
+              {somar7Dias(7)}
             </p>
-            <p>
-              <span className="font-bold">Humidade</span> {humidity}%
+            <p className="text-[12px]">
+              <span className="font-bold">Vento </span> {wind}km/h
+            </p>
+            <p className="text-[12px]">
+              <span className="font-bold ">Humidade</span> {humidity}%
             </p>
           </div>
         </div>

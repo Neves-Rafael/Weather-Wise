@@ -59,14 +59,16 @@ export function Today(props: {
   console.log(imagem);
 
   return (
-    <div className="w-[500px] h-[250px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
-      <div className="w-11/12 m-auto flex flex-col justify-between  h-5/6">
+    <div className=" w-[250px] md:w-[500px] h-[150px]  md:h-[250px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
+      <div className="w-11/12 m-auto flex flex-col justify-between h-5/6">
         <div className="flex justify-between">
           <div>
-            <p className="font-bold text-xl">Clima Atual</p>
+            <p className="font-bold text-[12px] hidden md:block md:text-xl">
+              Clima Atual
+            </p>
           </div>
           <div>
-            <button className="bg-blue-600 text-white py-1  px-3 rounded-lg">
+            <button className="bg-blue-600 text-white py-1 text-[10px] md:text-sm px-3 rounded-lg">
               <a target="_blank" href="mailto:nevesrafael.dev@gmail.com">
                 Está vendo um clima diferente?
               </a>
@@ -74,32 +76,33 @@ export function Today(props: {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <img src={imagem} className="w-[90px] h-[90px]" />
+          <img src={imagem} className=" w-14 h-14 md:w-[90px] md:h-[90px]" />
           <div>
-            <p className="text-7xl text-black font-black text-center">
+            <p className=" text-[30px] md:text-7xl text-black font-black text-center">
               {props.dados.main.temp}°C
             </p>
-            <p className="text-slate-500 font-bold text-xl">
+            <p className="text-slate-500 font-bold text-[11px] w-[108px] md:text-xl">
               {`Min ${props.dados.main.tempMin - 6}°C /Max ${
-                props.dados.main.tempMax
+                parseInt(props.dados.main.tempMax.toString().substring(0, 2)) +
+                6
               }°C`}
             </p>
           </div>
-          <div>
-            <p className="font-bold text-lg text-center mb-4">
+          <div className="w-[80px] md:w-auto">
+            <p className="font-bold text-[8px] md:text-lg hidden md:block text-center md:mb-4">
               {props.dados.weather.description.toUpperCase()}
             </p>
-            <p className="text-center">
+            <p className="text-center text-[12px]">
               Sensação térmica <br />
-              <span className="font-bold text-lg">
+              <span className="font-bold md:text-lg">
                 {`${props.dados.main.feelsLike}°C`}
               </span>
             </p>
           </div>
         </div>
         <div className="flex flex-col">
-          <div className="h-[2px] bg-slate-300 mb-2" />
-          <div className="flex justify-between">
+          <div className="h-[2px] bg-slate-300 mt-2 mb-2" />
+          <div className="flex justify-between text-[10px] md:text-sm text-center">
             <p>
               <span className="font-bold">Vento</span> {props.dados.wind} km/h
             </p>

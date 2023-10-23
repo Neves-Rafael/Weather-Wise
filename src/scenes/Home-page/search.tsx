@@ -11,7 +11,7 @@ import { DayTwo } from "../components/daytwo";
 import { Forecast } from "../components/forecast";
 
 const imputStyle =
-  "rounded-lg  w-[300px] placeholder:text-center p-1 focus:border-blue-500 focus:outline-none text-[20px] text-center";
+  "rounded-lg  md:w-[300px] placeholder:text-center md:p-1 focus:border-blue-500 focus:outline-none text-sm md:text-[20px] text-center";
 
 const Search = () => {
   //função para pegar o valor do input
@@ -20,6 +20,7 @@ const Search = () => {
   //atualiza o valor do input
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value); // Atualiza o estado com o valor do input
+    setErrorMessage("");
   };
 
   //Hooks para atualizar a localização e enviar para a API
@@ -151,9 +152,9 @@ const Search = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-10 w-[250px]  md:w-auto">
         {/* Imput */}
-        <div className="flex justify-center gap-4 mb-10">
+        <div className="flex justify-center gap-4 md:mb-10">
           <input
             type="text"
             className={imputStyle}
@@ -161,7 +162,7 @@ const Search = () => {
             value={inputValue} // Valor do input é controlado pelo estado
             onChange={handleInputChange} // Manipulador de eventos para capturar alterações no input
           />
-          <p className="absolute mt-14 text-black font-bold p-2 text-lg ">
+          <p className="absolute w-[250px] text-center mt-10 md:mt-14 text-black font-bold p-2 text-[10px] md:text-lg ">
             {errorMessage}
           </p>
 
@@ -169,7 +170,7 @@ const Search = () => {
           <div className="flex justify-center">
             <button
               onClick={callHandle}
-              className="bg-orange-400 text-black w-[100px] m-auto py-2 rounded-lg hover:text-white hover:bg-orange-600"
+              className="bg-orange-400 text-sm font-bold text-black px-2 md:w-[100px] m-auto py-1 md:py-2 rounded-lg hover:text-white hover:bg-orange-600"
             >
               Buscar
             </button>
@@ -177,12 +178,12 @@ const Search = () => {
           </div>
         </div>
 
-        <div className="bg-black bg-opacity-30 p-5 rounded-lg">
-          <div className="flex gap-5">
+        <div className="bg-black bg-opacity-30 md:p-5 rounded-lg">
+          <div className="flex flex-col gap-5">
             {/* TODAY */}
             <Today dados={dados} inputValue={inputValue} imagem={imagem} />
             {/* BARRA DE PESQUISA */}
-            <div className="h-full flex flex-col gap-[10px]">
+            <div className="h-full flex flex-col gap-5">
               {/* DAY 1 */}
               <DayOne dados={forecastDados} number={[3]} />
               {/* DAY 2 */}
@@ -190,8 +191,7 @@ const Search = () => {
             </div>
           </div>
           {/* FORECAST */}
-          {/* <Forecast dados={forecastDados} /> */}
-          <div className="mt-5 flex gap-[11px] justify-center rounded-lg">
+          <div className="mt-5 flex gap-[11px] md:justify-center rounded-lg overflow-auto">
             <Forecast dados={forecastDados} number={[12]} day={3} />
             <Forecast dados={forecastDados} number={[18]} day={4} />
             <Forecast dados={forecastDados} number={[26]} day={5} />
