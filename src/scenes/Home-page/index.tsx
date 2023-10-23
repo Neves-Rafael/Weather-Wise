@@ -29,12 +29,12 @@ const Home = () => {
       <div>
         <LoadingScreen />
       </div>
-      <div className="w-screen  flex items-center justify-center bg-blue-950">
+      <div className="">
         {/* background */}
-        <img
-        // src={background}
-        // className="object-cover w-full h-full z-[-1]  absolute brightness-75"
-        />
+        {/* <img
+          src={background}
+          className="object-cover z-[-1]  absolute brightness-75"
+        /> */}
         <div className="flex items-center justify-center flex-col mt-20">
           {/* LOGO*/}
           <div className="flex items-center flex-col gap-[50px] h-full pt-32">
