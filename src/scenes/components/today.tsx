@@ -94,28 +94,28 @@ export function Today(props: {
   //     break;
   // }
 
-  type Icon =
-    | "01d"
-    | "02d"
-    | "03d"
-    | "04d"
-    | "05d"
-    | "06d"
-    | "07d"
-    | "08d"
-    | "09d"
-    | "10d"
-    | "01n"
-    | "02n"
-    | "03n"
-    | "04n"
-    | "05n"
-    | "06n"
-    | "07n"
-    | "08n"
-    | "09n"
-    | "10n"
-    | "50n";
+  // type Icon =
+  //   | "01d"
+  //   | "02d"
+  //   | "03d"
+  //   | "04d"
+  //   | "05d"
+  //   | "06d"
+  //   | "07d"
+  //   | "08d"
+  //   | "09d"
+  //   | "10d"
+  //   | "01n"
+  //   | "02n"
+  //   | "03n"
+  //   | "04n"
+  //   | "05n"
+  //   | "06n"
+  //   | "07n"
+  //   | "08n"
+  //   | "09n"
+  //   | "10n"
+  //   | "50n";
   type IconConfig = Record<string, string>;
   const iconsConfig: IconConfig = {
     "01d": day1,
