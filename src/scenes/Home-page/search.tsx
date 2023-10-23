@@ -1,9 +1,10 @@
+import { logo } from "@/assets";
 import { useState, useEffect } from "react";
 import {
   GEO_API_URL,
   API_KEY,
   METEO_API_URL,
-  FORESCAST_API_URL,
+  FORECAST_API_URL,
 } from "@/shared/apis";
 import { Today } from "../components/today";
 import { DayOne } from "../components/dayone";
@@ -11,7 +12,7 @@ import { DayTwo } from "../components/daytwo";
 import { Forecast } from "../components/forecast";
 
 const imputStyle =
-  "rounded-lg  md:w-[300px] placeholder:text-center md:p-1 focus:border-blue-500 focus:outline-none text-sm md:text-[20px] text-center";
+  "rounded-lg  sm:w-[300px] w-[200px] placeholder:text-center sm:p-1 focus:border-blue-500 focus:outline-none text-sm sm:text-[20px] text-center";
 
 const Search = () => {
   //função para pegar o valor do input
@@ -75,7 +76,7 @@ const Search = () => {
 
   //solicitação API tempo da semana
   const getForecasWeather = async (latitude: string, longitude: string) => {
-    const forecastApi = `${FORESCAST_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
+    const forecastApi = `${FORECAST_API_URL}lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric&lang=pt_br`;
     const resultForecastApi = await fetch(forecastApi);
     const resultForecastApiJson = await resultForecastApi.json();
     setForecastDados(resultForecastApiJson);
@@ -152,9 +153,19 @@ const Search = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-10 w-[250px]  md:w-auto">
+      <div className="flex flex-col gap-10 justify-center sm:w-auto sm:pt-24 sm:pb-24 pt-[50%] pb-[40%]">
+        <div className="flex flex-col items-center">
+          <img
+            src={logo}
+            alt=""
+            className=" w-[50px] sm:w-[100px] sm:h-[100px]"
+          />
+          <p className="sm:text-4xl text-center text-white font-bold">
+            Weather Wise
+          </p>
+        </div>
         {/* Imput */}
-        <div className="flex justify-center gap-4 md:mb-10">
+        <div className="flex justify-center gap-4 sm:mb-10 relative">
           <input
             type="text"
             className={imputStyle}
@@ -162,7 +173,7 @@ const Search = () => {
             value={inputValue} // Valor do input é controlado pelo estado
             onChange={handleInputChange} // Manipulador de eventos para capturar alterações no input
           />
-          <p className="absolute w-[250px] text-center mt-10 md:mt-14 text-black font-bold p-2 text-[10px] md:text-lg ">
+          <p className="absolute w-[300px] sm:w-[500px] text-center mt-6 sm:mt-14 text-black font-bold p-2 text-[12px] sm:text-lg ">
             {errorMessage}
           </p>
 
@@ -170,7 +181,7 @@ const Search = () => {
           <div className="flex justify-center">
             <button
               onClick={callHandle}
-              className="bg-orange-400 text-sm font-bold text-black px-2 md:w-[100px] m-auto py-1 md:py-2 rounded-lg hover:text-white hover:bg-orange-600"
+              className="bg-orange-400 text-sm font-bold text-black px-2 sm:w-[100px] m-auto py-1 sm:py-2 rounded-lg hover:text-white hover:bg-orange-600"
             >
               Buscar
             </button>
@@ -178,12 +189,14 @@ const Search = () => {
           </div>
         </div>
 
-        <div className="bg-black bg-opacity-30 md:p-5 rounded-lg">
-          <div className="flex flex-col gap-5">
+        <div className="bg-black bg-opacity-30 rounded-lg py-5 px-5 w-[300px] sm:w-[550px]  lg:w-[1000px] m-auto">
+          <div className="flex flex-wrap gap-5 ">
             {/* TODAY */}
-            <Today dados={dados} inputValue={inputValue} imagem={imagem} />
+            <div className="m-auto">
+              <Today dados={dados} inputValue={inputValue} imagem={imagem} />
+            </div>
             {/* BARRA DE PESQUISA */}
-            <div className="h-full flex flex-col gap-5">
+            <div className="flex flex-col gap-5 m-auto">
               {/* DAY 1 */}
               <DayOne dados={forecastDados} number={[3]} />
               {/* DAY 2 */}
@@ -191,7 +204,7 @@ const Search = () => {
             </div>
           </div>
           {/* FORECAST */}
-          <div className="mt-5 flex gap-[11px] md:justify-center rounded-lg overflow-auto">
+          <div className="mt-5 flex gap-[20px] sm:justify-center rounded-lg w-[250px] sm:w-[400px] lg:w-auto flex-wrap m-auto">
             <Forecast dados={forecastDados} number={[12]} day={3} />
             <Forecast dados={forecastDados} number={[18]} day={4} />
             <Forecast dados={forecastDados} number={[26]} day={5} />

@@ -65,39 +65,38 @@ export function DayOne(props: any) {
   const icons: string = icon;
   const imagem = iconsConfig[icons];
 
-  console.log(imagem);
   return (
     <div
       className="
-    w-[250px] md:w-[400px] md:h-[120px] bg-slate-200 rounded-lg text-black flex justify-between flex-col"
+    w-[250px] sm:w-[500px] sm:h-[120px] lg:w-[400px] bg-slate-200 rounded-lg text-black flex justify-between flex-col"
     >
-      <div className="w-[95%] h-[95%] m-auto flex flex-col justify-between p-2">
+      <div className="w-[95%] h-[95%] m-auto flex flex-col justify-between p-2 ">
         <div className="flex justify-between items-center">
           <img
             src={imagem}
-            className="mr-2 w-12 h-12 md:w-[70px] md:h-[70px]"
+            className="mr-2 w-12 h-12 sm:w-[70px] sm:h-[70px]"
           />
           <div>
-            <p className=" text-3xl md:text-5xl text-black font-black text-center">
+            <p className=" text-3xl sm:text-5xl text-black font-black text-center">
               {temp}°C
             </p>
           </div>
           <div>
-            <p className="text-slate-500 font-bold text-sm md:text-xl">{`Min ${
+            <p className="text-slate-500 font-bold text-sm sm:text-xl">{`Min ${
               tempMin - 4
             }°C `}</p>
-            <p className="text-slate-500 font-bold text-sm md:text-xl">{` Max ${tempMax}°C`}</p>
+            <p className="text-slate-500 font-bold text-sm sm:text-xl">{` Max ${tempMax}°C`}</p>
           </div>
         </div>
         <div className="flex flex-col">
           <div className="h-[2px] bg-slate-300 mb-0 mt-2" />
-          <div className="flex justify-between text-center">
-            <p className=" font-bold pt-2 pr-7 md:pr-0 ">Amanhã</p>
-            <p className="text-[12px]">
+          <div className="flex justify-between text-center items-center gap-2">
+            <p className=" font-bold text-[10px] sm:pr-0 lg:text-lg">Amanhã</p>
+            <p className="text-[12px] lg:text-sm">
               <span className="font-bold">Vento </span> {wind}km/h
             </p>
             <p className="text-[12px]">
-              <span className="font-bold">Humidade</span> {humidity}%
+              <span className="font-bold lg:text-sm">Humidade</span> {humidity}%
             </p>
           </div>
         </div>

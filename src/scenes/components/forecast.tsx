@@ -80,17 +80,15 @@ export function Forecast(props: any) {
   const icons: string = icon;
   const imagem = iconsConfig[icons];
 
-  console.log(imagem);
-
   return (
-    <div className="bg-gray-400 text-white w-[115px] h-[100px] md:w-[175px] md:h-[125px] flex justify-between items-center px-4 py-1 rounded-lg">
+    <div className="bg-gray-400 text-white w-[115px] h-[100px] lg:w-[175px] lg:h-[125px] flex justify-between items-center  px-2 lg:px-4 py-1 rounded-lg">
       <div className="flex flex-col justify-center gap-2 h-full">
-        <p className="font-bold text-xl">{somar7Dias(props.day)}</p>
-        <img className="w-14 h-14md:w-[70px] md:h-[70px]" src={imagem} />
+        <p className="font-bold text-sm lg:text-xl">{somar7Dias(props.day)}</p>
+        <img className="w-14 h-14 lg:w-[70px] lg:h-[70px]" src={imagem} />
       </div>
       <div className="flex flex-col justify-around h-full">
-        <p className="font-bold text-2xl md:text-4xl">{tempMax}°</p>
-        <p className="font-bold text-2xl md:text-4xl">{tempMin}°</p>
+        <p className="font-bold text-2xl lg:text-4xl">{tempMax}°</p>
+        <p className="font-bold text-2xl lg:text-4xl">{tempMin}°</p>
       </div>
     </div>
   );
