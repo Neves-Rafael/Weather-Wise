@@ -4,10 +4,10 @@
 
 ## Tecnologias 📌
 
--React: Biblioteca JavaScript para construir interfaces de usuário.
--TypeScript: Superset do JavaScript que adiciona tipagem estática ao código.
--Vite: Build tool que fornece um desenvolvimento rápido para projetos em JavaScript, TypeScript, React e Vue.
--Tailwind CSS: Framework de estilo para criação de designs responsivos e elegantes.
+- React: Biblioteca JavaScript para construir interfaces de usuário.
+- TypeScript: Superset do JavaScript que adiciona tipagem estática ao código.
+- Vite: Build tool que fornece um desenvolvimento rápido para projetos em JavaScript, TypeScript, React e Vue.
+- Tailwind CSS: Framework de estilo para criação de designs responsivos e elegantes.
 
 ## Funcionamento 🔍
 
