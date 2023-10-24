@@ -1,27 +1,27 @@
-# React + TypeScript + Vite
+#  ☀️ Weather Wise | Clima hoje
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+ É uma aplicação que, através da cidade selecionada pelo usuário, efetua uma requisição à API de clima e retorna os dados detalhados.
 
-Currently, two official plugins are available:
+# Tecnologias 📌
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-React: Biblioteca JavaScript para construir interfaces de usuário.
+-TypeScript: Superset do JavaScript que adiciona tipagem estática ao código.
+-Vite: Build tool que fornece um desenvolvimento rápido para projetos em JavaScript, TypeScript, React e Vue.
+-Tailwind CSS: Framework de estilo para criação de designs responsivos e elegantes.
+
+## Funcionamento 🔍
+
+Pesquisa pelo Usuário
+A aplicação permite que o usuário busque pela cidade desejada.
+
+Retorno de Informações
+As informações são apresentadas em blocos separados para:
+
+-Dia Atual: Detalhes do clima para o dia atual.
+-Próximos Dois Dias: Previsões para os dois dias seguintes.
+-Próximos 5 Dias da Semana: Previsões para os próximos cinco dias da semana.
 
 ## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Install [Link Da Api utilizada](https://openweathermap.org/api)
