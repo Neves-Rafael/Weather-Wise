@@ -60,9 +60,10 @@ export function Today(props: {
     <div className=" w-[250px] sm:w-[500px] lg:w-[540px] h-[150px] sm:h-[260px] bg-slate-200 rounded-lg text-black flex justify-between flex-col">
       <div className="w-11/12 m-auto flex flex-col justify-between h-5/6">
         <div className="flex justify-between">
-          <div>
-            <p className="font-bold text-[12px] hidden sm:block sm:text-xl">
-              Clima Atual
+          <div className="relative">
+            <p className="text-[12px] hidden sm:block sm:text-xl w-[160px] absolute top-[-10px]">
+              <span className="font-bold">A sua busca foi:</span>{" "}
+              {props.inputValue}
             </p>
           </div>
           <div>

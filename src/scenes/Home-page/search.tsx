@@ -127,8 +127,12 @@ const Search = () => {
     }
   };
 
+  //adiciona o valor de busca ao componente today
+  const [searchCity, setSearchCity] = useState("Brasília");
+
   const callHandle = () => {
     getGeoCode(inputValue);
+    setSearchCity(inputValue);
   };
 
   //fazer uma chamada para a API uma única vez com a cidade pré definida (Brasília)
@@ -148,6 +152,14 @@ const Search = () => {
 
     return <div>{/* Conteúdo do seu componente */}</div>;
   };
+
+  const onKeyPress = (event: any) => {
+    if (event.keyCode === 13) {
+      // Chama a função
+      callHandle();
+    }
+  };
+
   //chamada automática do componente
   MeuComponente();
 
@@ -172,6 +184,7 @@ const Search = () => {
             placeholder="Busca a sua Cidade"
             value={inputValue} // Valor do input é controlado pelo estado
             onChange={handleInputChange} // Manipulador de eventos para capturar alterações no input
+            onKeyDown={onKeyPress}
           />
           <p className="absolute w-[300px] sm:w-[500px] text-center mt-6 sm:mt-14 text-black font-bold p-2 text-[12px] sm:text-lg ">
             {errorMessage}
@@ -193,7 +206,7 @@ const Search = () => {
           <div className="flex flex-wrap gap-5 ">
             {/* TODAY */}
             <div className="m-auto">
-              <Today dados={dados} inputValue={inputValue} imagem={imagem} />
+              <Today dados={dados} inputValue={searchCity} imagem={imagem} />
             </div>
             {/* BARRA DE PESQUISA */}
             <div className="flex flex-col gap-5 m-auto">

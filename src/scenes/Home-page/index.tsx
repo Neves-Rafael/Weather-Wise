@@ -32,7 +32,7 @@ const Home = () => {
 
       <img
         src={background}
-        className="object-cover bg-repeat h-full w-full z-[-1]  absolute brightness-75"
+        className="object-cover bg-repeat h-[1500px] sm:h-[1310px] lg:h-[950px] w-full z-[-1] absolute brightness-60"
       />
       <Search />
     </>
