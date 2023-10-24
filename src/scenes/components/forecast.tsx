@@ -46,6 +46,7 @@ export function Forecast(props: any) {
     return `${dia}/${mes}`;
   }
 
+  //mudando o formato do valor recebido para °C
   const icon = props.dados.list[n].weather[0].icon,
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2) - 6,
     tempMax =

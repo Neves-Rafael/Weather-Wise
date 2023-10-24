@@ -68,6 +68,7 @@ export function Today(props: {
           </div>
           <div>
             <button className="bg-blue-600 text-white py-1 text-[10px] sm:text-sm px-3 rounded-lg">
+              {/* enviar e-mail */}
               <a target="_blank" href="mailto:nevesrafael.dev@gmail.com">
                 Está vendo um clima diferente?
               </a>
@@ -76,6 +77,7 @@ export function Today(props: {
         </div>
         <div className="flex justify-between items-center gap-2">
           <img src={imagem} className=" w-14 h-14 sm:w-[90px] sm:h-[90px]" />
+          {/* tempo hoje */}
           <div>
             <p className=" text-[30px] sm:text-7xl text-black font-black text-center">
               {props.dados.main.temp}°C

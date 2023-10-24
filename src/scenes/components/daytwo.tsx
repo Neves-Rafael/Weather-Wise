@@ -45,6 +45,7 @@ export function DayTwo(props: any) {
     return `${dia}/${mes}`;
   }
 
+  //definindo os dados recebidos da API
   const icon = props.dados.list[n].weather[0].icon,
     temp = props.dados.list[n].main.temp.toString().substring(0, 2),
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2),

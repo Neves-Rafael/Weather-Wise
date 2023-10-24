@@ -3,6 +3,7 @@ import Search from "./search";
 import { useEffect, useState } from "react";
 
 const Home = () => {
+  //animação de carregamento inicial
   const LoadingScreen = () => {
     const [visible, setVisible] = useState(true);
 

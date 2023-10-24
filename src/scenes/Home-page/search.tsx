@@ -15,7 +15,7 @@ const imputStyle =
   "rounded-lg  sm:w-[300px] w-[200px] placeholder:text-center sm:p-1 focus:border-blue-500 focus:outline-none text-sm sm:text-[20px] text-center";
 
 const Search = () => {
-  //função para pegar o valor do input
+  //Hooks para pegar o valor do input
   const [inputValue, setInputValue] = useState("Brasília");
 
   //atualiza o valor do input
@@ -46,6 +46,7 @@ const Search = () => {
     },
   });
 
+  //Hook para pegar a mensagem de erro
   const [errorMessage, setErrorMessage] = useState("");
 
   //Hook para pegar dados do retorno do ForeCast API
@@ -115,6 +116,7 @@ const Search = () => {
     });
   };
 
+  //fazer a buscar a localização
   const getGeoCode = async (inputValue: string) => {
     try {
       const apiGeoCodeUrl = `${GEO_API_URL}${inputValue}&limit=1&appid=${API_KEY}`;
@@ -153,6 +155,7 @@ const Search = () => {
     return <div>{/* Conteúdo do seu componente */}</div>;
   };
 
+  //fazer a buscar a partir da tecla enter
   const onKeyPress = (event: any) => {
     if (event.keyCode === 13) {
       // Chama a função

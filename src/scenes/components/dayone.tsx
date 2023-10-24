@@ -28,6 +28,7 @@ export function DayOne(props: any) {
     n = 0;
   }
 
+  //definindo os dados enviador da Api
   const icon = props.dados.list[n].weather[0].icon,
     temp = props.dados.list[n].main.temp.toString().substring(0, 2),
     tempMin = props.dados.list[n].main.temp_min.toString().substring(0, 2),
