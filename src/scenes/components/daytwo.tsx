@@ -113,7 +113,7 @@ export function DayTwo(props: any) {
               <span className="font-bold">Vento </span> {wind}km/h
             </p>
             <p className="text-[12px] lg:text-sm">
-              <span className="font-bold ">Humidade</span> {humidity}%
+              <span className="font-bold ">Umidade</span> {humidity}%
             </p>
           </div>
         </div>

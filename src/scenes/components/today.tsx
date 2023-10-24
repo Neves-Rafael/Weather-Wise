@@ -108,7 +108,7 @@ export function Today(props: {
               <span className="font-bold">Vento</span> {props.dados.wind} km/h
             </p>
             <p>
-              <span className="font-bold">Humidade</span>{" "}
+              <span className="font-bold">Umidade</span>{" "}
               {props.dados.main.humidity}%
             </p>
             <p>

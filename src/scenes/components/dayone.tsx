@@ -97,7 +97,7 @@ export function DayOne(props: any) {
               <span className="font-bold">Vento </span> {wind}km/h
             </p>
             <p className="text-[12px]">
-              <span className="font-bold lg:text-sm">Humidade</span> {humidity}%
+              <span className="font-bold lg:text-sm">Umidade</span> {humidity}%
             </p>
           </div>
         </div>
